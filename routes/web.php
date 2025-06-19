@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+use App\http\Controllers\MyController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -32,3 +35,13 @@ Route::get('search/{keyword?}', function ($key = null) {
 Route::get('toko/{barang?}/{kode?}', function ($barang = null, $kode = null){
     return view('toko' , compact('barang','kode'));
 });
+
+
+route::get('buku', [MyController::class, 'index']);
+
+route::get('buku/create', [MyController::class, 'create']);
+route::post('buku', [MyController::class, 'store']);
+route::get('buku/{id}', [MyController::class, 'show']);
+route::get('buku/{id}/edit', [MyController::class, 'edit']);
+route::put('buku/{id}', [MyController::class, 'update']);
+route::delete('buku/{id}', [MyController::class, 'destroy']);
