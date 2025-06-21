@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-
+use App\Http\Controllers\BackendController;
+use App\Http\Middleware\Admin;
 use App\http\Controllers\MyController;
 
 Route::get('/', function () {
@@ -48,3 +48,12 @@ route::delete('buku/{id}', [MyController::class, 'destroy']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+//route admin
+
+Route::group(['prefix'=>'admin', 'middleware'=>['auth', Admin::class]], function(){
+    
+    Route::get('/', [BackendController::class, 'index']);
+     
+    });
