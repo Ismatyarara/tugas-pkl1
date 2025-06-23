@@ -14,7 +14,8 @@ class Product extends Model
     //relasi product ke category
     public function category()
     {
-        return $this->belongTo(Category::class);
+     return $this->belongsTo(Category::class);
+
     }
     public function cart()
     {

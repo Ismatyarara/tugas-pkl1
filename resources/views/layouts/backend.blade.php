@@ -1157,4 +1157,7 @@
   <script src="{{asset('assets/backend/js/dashboards/dashboard.js')}}"></script>
 </body>
 
+@include('sweetalert::alert')
+@yield('js')
+@yield('scripts')
 </html>

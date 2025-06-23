@@ -1,0 +1,63 @@
+@extends('layouts.backend')
+@section('styles')
+<link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.css">
+@endsection
+
+@section('content')
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    Data Category
+                    <a href="{{ route('category.create') }}" class="btn btn-info btn-sm" style="color: white; float:right;">
+                        Tambah
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="table table-responsive">
+                        <table class="table" id="dataCategory">
+                            <tr>
+                                <th>no</th>
+                                <th>nama kategori</th>
+                                <th>slug</th>
+                                <th>aksi</th>
+                            </tr>
+                        
+                            <thead>
+                                  <tbody>
+                                    @foreach($category as $data)
+                                    <tr>
+                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{$data->name}}</td>
+                                        <td>{{$data->slug}}</td>
+                                        <td>
+                                            <a href="{{route('category.edit', $data->id) }}" class="btn btn-warning">
+                                                edit
+                                            </a>
+                                            <a href="{{route('category.destroy', $data->id) }}" class="btn btn-danger" 
+                                            data-confirm-delete="true" >
+                                                delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                  </tbody>
+                            </thead>
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@push('scripts')
+<script scr="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.js"></script>
+<script>
+new DataTable('#dataCategory');
+</script>
+@endpush
