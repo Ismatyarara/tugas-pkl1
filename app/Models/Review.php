@@ -20,6 +20,6 @@ public function product()
         return $this->belongTo(product::class);
 
     }
-    
+
 }
 

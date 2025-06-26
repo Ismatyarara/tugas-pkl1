@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Storage;
+
 use Str;
 
 class ProductController extends Controller
@@ -57,7 +58,7 @@ class ProductController extends Controller
 
         $product->save();
         toast('Data berhasil disimpan', 'success');
-        return redirect()->route('product.index');
+        return redirect()->route('backend.product.index');
     }
 
     public function show(string $id)
@@ -107,7 +108,7 @@ class ProductController extends Controller
 
         $product->save();
         toast('Data berhasil disimpan', 'success');
-        return redirect()->route('product.index');
+        return redirect()->route('backend.product.index');
 
     }
 

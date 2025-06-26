@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
-use Str;
 use Alert;
-
+use Str;
 
 class CategoryController extends Controller
 {
@@ -16,12 +15,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        
-        $title = 'hapus data';
-        $text = "apakah anda yakin?";
+        $category = Category::latest()->get();
+
+        $title = 'Delete Category!';
+        $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
-        $category = category::latest()->get();
-        return view ('backend.category.index', compact('category'));
+        
+        return view('backend.category.index', compact('category'));
     }
 
     /**
@@ -29,7 +29,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-         return view ('backend.category.create');
+        return view ('backend.category.create');
     }
 
     /**
@@ -37,16 +37,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $validated= $request->validate([
-     'name'=>'required|unique:categories',
+        $validated = $request->validate([
+            'name' => 'required|unique:categories',
         ]);
 
-        $category = new category();
-        $category->name =$request->name;
-         $category->slug =Str::slug($request->name,'-');
-         $category->save();
-         toast('data berhasil di simpan', 'succes');
-         return redirect()->route('category.index');
+        $category = new Category();
+        $category -> name = $request->name;
+        $category -> slug = Str::slug($request->name, '-');
+        $category -> save();
+        toast ('data berhasil disimpan', 'success');
+        return redirect()->route('backend.category.index');
     }
 
     /**
@@ -58,12 +58,12 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for edying the specified resource.
+     * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        $category = Category:: findOrFail($id);
-        return view('backend.category.edit',compact('category'));
+        $category = category::findOrFail($id);
+        return view('backend.category.edit', compact('category'));
     }
 
     /**
@@ -71,16 +71,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-          $validated= $request->validate([
-          'name'=>'required',
+        $validated = $request->validate([
+            'name' => 'required|unique:categories',
         ]);
-
-        $category = Category::findOrFail($id);
-        $category->name =$request->name;
-         $category->slug =Str::slug($request->name,'-');
-         $category->save();
-         toast('data berhasil di edit', 'success');
-         return redirect()->route('category.index');
+        
+        $category = category::findOrFail($id);
+        $category -> name = $request->name;
+        $category -> slug = Str::slug($request->name, '-');
+        $category -> save();
+        toast ('data berhasil diedit', 'success');
+        return redirect()->route('backend.category.index');
     }
 
     /**
@@ -88,9 +88,9 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-     $category = Category::findOrFail($id);
-     $category->delete();
-     toast('data berhasil di hapus', 'success');
-     return redirect()->route('category.index');
+        $category = category::findOrFail($id);
+        $category -> delete();
+        toast('data berhasil dihapus', 'success');
+        return redirect()->route('backend.category.index');
     }
 }

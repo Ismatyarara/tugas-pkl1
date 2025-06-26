@@ -56,7 +56,7 @@
                     </div>
 
                     <div class="text-end">
-                        <a href="{{ route('product.index') }}" class="btn btn-outline-secondary rounded-pill px-4">
+                        <a href="{{ route('backend.product.index') }}" class="btn btn-outline-secondary rounded-pill px-4">
                             <i class="fas fa-arrow-left me-1"></i> Kembali
                         </a>
                     </div>
