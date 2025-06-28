@@ -23,22 +23,34 @@
             </li>
             <!-- ---------------------------------- -->
             <!-- Dashboard -->
-            <!-- ---------------------------------- -->
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="/admin/category"  aria-expanded="false">
-                <span>
-                  <i class="ti ti-aperture"></i>
-                </span>
-                <span class="hide-menu">Category</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="/admin/product" aria-expanded="false">
-                <span>
-                  <i class="ti ti-shopping-cart"></i>
-                </span>
-                <span class="hide-menu">Product</span>
-              </a>
-            </li>
+                          <!-- ---------------------------------- -->
+                                  <li class="sidebar-item">
+                <a class="sidebar-link" href="/admin/category" aria-expanded="false">
+                  <span>
+                    <i class="ti ti-category"></i> <!-- Ikon kategori khusus -->
+                  </span>
+                  <span class="hide-menu">Category</span>
+                </a>
+              </li>
+
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="/admin/product" aria-expanded="false">
+                  <span>
+                    <i class="ti ti-box-seam"></i> <!-- Ikon produk/kardus -->
+                  </span>
+                  <span class="hide-menu">Product</span>
+                </a>
+              </li>
+
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="/admin/orders" aria-expanded="false">
+                  <span>
+                    <i class="ti ti-file-invoice"></i> <!-- Ikon invoice/nota -->
+                  </span>
+                  <span class="hide-menu">Orders</span>
+                </a>
+              </li>
+
+
             </div>
     </aside>

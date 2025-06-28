@@ -1,30 +1,32 @@
 <?php
+
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Product;
 use Auth;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+
+
 
 class CartController extends Controller
 {
-
     public function index()
     {
         $cartItems = Cart::with('product')
             ->where('user_id', auth()->id())
             ->get();
 
-        return view('cart', compact('cartItems'));
+            return view ('cart', compact('cartItems'));
     }
 
     public function addToCart(Request $request, $id)
     {
         if (! Auth::check()) {
-            // Jika belum login, redirect dengan alert
-            toast('Silakan login terlebih dahulu untuk menambahkan ke keranjang.', 'error');
+            //jika belu  login redirect dengan alert
+            toast ('silahkan login terlebih dahulu untuk menambahkan ke kerangjang.' , 'error');
             return redirect('/login');
         }
 
@@ -40,34 +42,35 @@ class CartController extends Controller
             $cart->increment('qty', $request->qty);
         } else {
             Cart::create([
-                'user_id'    => Auth::id(),
+                'user_id' => Auth::id(),
                 'product_id' => $id,
-                'qty'        => $request->qty,
+                'qty' => $request->qty,
             ]);
         }
-        toast('Produk berhasil ditambahkan ke keranjang.', 'success');
+        toast ('product berhasil ditambahkan ke keranjang.', 'success');
         return back();
     }
 
-    public function updateCart(Request $request, $id)
+    public function updateCart(request $request, $id)
     {
         $cartItem = Cart::findOrFail($id);
 
         $request->validate([
-            'qty' => 'required|integer|min:1|max:' . $cartItem->product->stock,
+            'qty' =>'required|integer|min:1|max:' . $cartItem->product->stock,
         ]);
 
         $cartItem->qty = $request->qty;
         $cartItem->save();
 
-        toast('Jumlah berhasil diperbarui.', 'success');
-        return redirect()->route('cart.index');
+        toast('jumlah berhasil diperbarui.', 'success');
+        return (redirect)->route('cart.index');
     }
+
     public function remove($id)
     {
         $cart = Cart::where('id', $id)->where('user_id', auth()->id())->firstOrFail();
         $cart->delete();
-        toast('Produk berhasil dihapus dari keranjang.', 'success');
+        toast('produk berhasil dihapus dari kerajang,', 'success');
         return redirect()->route('cart.index');
     }
 
@@ -75,21 +78,23 @@ class CartController extends Controller
     {
         $cartItems = Cart::with('product')->where('user_id', auth()->id())->get();
         if ($cartItems->isEmpty()) {
-            toast('Keranjang kosong. Tidak bisa checkout.', 'warning');
+           toast('Keranjang kosong. Tidak bisa checkout.', 'warning');
             return redirect()->route('cart.index');
         }
-        // Hitung total harga
+
+        // hitung total harga
         $total = $cartItems->sum(function ($item) {
             return $item->qty * $item->product->price;
         });
-        // Simpan order
-        $order = Order::create([
-            'user_id'     => auth()->id(),
-            'order_code'  => 'ORD-' . strtoupper(Str::random(8)),
-            'total_price' => $total,
-            'status'      => 'pending',
-        ]);
 
+        //simpan order
+        $order = Order::create([
+            'user_id' => auth()->id(),
+            'order_code' => 'ORD-' . strtoupper(Str::random(8)),
+            'total_price' => $total,
+            'status' => 'pending',
+        ]);
+            
         // Simpan detail order ke pivot `order_product`
         foreach ($cartItems as $item) {
             // Kurangi stok
@@ -107,7 +112,6 @@ class CartController extends Controller
         Cart::where('user_id', auth()->id())->delete();
 
         toast('Pesanan berhasil dibuat!', 'success');
-        return redirect()->route('orders.index');
+        return redirect()->route('order.index');
     }
-
 }

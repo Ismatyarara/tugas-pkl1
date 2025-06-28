@@ -4,11 +4,11 @@
     <div class="row">
         <div class="col">
             <div class="card">
-                <div class="card-header">
-                    Edit Produk
+                <div class="card-header bg-secondary">
+                    Edit Product
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('product.update',$product->id) }}" method="post"
+                    <form action="{{ route('backend.product.update',$product->id) }}" method="post"
                         enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
@@ -84,15 +84,15 @@
                                     @enderror
                                 </div>
                                 <div class="mb-2">
-                            <label for="">Deskripsi</label>
-                            <textarea name="description" class="form-control @error('description') is-invalid @enderror">{{ old('description', $product->description) }}</textarea>
-                            @error('description')
-                          <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                        </span>
-                     @enderror
-                      </div>
- 
+                                    <label for="">Deskripsi</label>
+                                    <textarea type="text" name="description"
+                                        class="form-control @error('description') is-invalid @enderror">{{ $product->description }}</textarea>
+                                    @error('description')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{$message}}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
 

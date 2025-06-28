@@ -1,6 +1,6 @@
 @extends('layouts.frontend')
 @section('content')
-<!-- shop__section__start-->
+<!-- shop_section_start-->
 <div class="shop sp_top_80">
     <div class="container">
         <div class="row grid__responsive">
@@ -51,18 +51,16 @@
                             @foreach ($product as $data)
                             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6">
                                 <div class="grid__wraper">
-                                    <div class="grid__wraper__img">
-                                        <div class="grid__wraper__img__inner">
+                                    <div class="grid_wraper_img">
+                                        <div class="grid_wraperimg_inner">
                                             <a href="{{ url('/product/' . $data->slug) }}">
                                                 <img class="primary__image" src="{{ Storage::url($data->image)}}"
                                                     alt="{{ $data->name }}" style="width: 100%; height: 250px; object-fit: cover;">
                                                     <!-- Mengatur gambar agar penuh lebar, tinggi 250px, Gambar tetap terlihat normal. -->
-                                                <img class="secondary__image" src="{{ Storage::url($data->image) }}"
-                                                    alt="{{ $data->name }}" style="width: 100%; height: 250px; object-fit: cover;">
                                             </a>
                                         </div>
 
-                                        <div class="grid__wraper__icon">
+                                        <div class="grid_wraper_icon">
                                             <ul>
                                                 <li>
                                                     <a href="{{ route('cart.add', $data->id) }}"
@@ -82,15 +80,15 @@
                                             </ul>
                                         </div>
 
-                                        <div class="grid__wraper__badge">
+                                        <div class="grid_wraper_badge">
                                             <span class="sale__badge">New</span>
                                         </div>
                                     </div>
-                                    <div class="grid__wraper__info">
-                                        <h3 class="grid__wraper__tittle">
+                                    <div class="grid_wraper_info">
+                                        <h3 class="grid_wraper_tittle">
                                             <a href="{{ url('/product/' . $data->slug) }}">{{ $data->name }}</a>
                                         </h3>
-                                        <div class="grid__wraper__price">
+                                        <div class="grid_wraper_price">
                                             <span>Rp {{ number_format($data->price, 0, ',', '.') }}</span>
                                         </div>
                                     </div>

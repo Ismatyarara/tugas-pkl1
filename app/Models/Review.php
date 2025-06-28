@@ -12,12 +12,12 @@ class Review extends Model
 
     public function user()
     {
-        return $this->belongTo(User::class);
+       return $this->belongsTo(User::class);
 
     }
 public function product()
     {
-        return $this->belongTo(product::class);
+         return $this->belongsTo(Product::class);
 
     }
 
